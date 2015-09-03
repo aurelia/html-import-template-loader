@@ -1,0 +1,22 @@
+{
+  "name": "html-import-template-loader",
+  "version": "0.1.0",
+  "description": "Use HTMLImport technology to load views.",
+  "keywords": [
+    "aurelia",
+    "loader",
+    "modules"
+  ],
+  "homepage": "http://aurelia.io",
+  "license": "MIT",
+  "authors": [
+    "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/aurelia/html-import-template-loader"
+  },
+  "dependencies": {
+    "aurelia-loader": "^0.8.4"
+  }
+}
