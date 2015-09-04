@@ -15,9 +15,7 @@ var jsName = paths.packageName + '.js';
 gulp.task('build-index', function(){
   var importsToAdd = [];
   var files = [
-    'html-import-template-loader.js',
-    'text-template-loader.js',
-    'index.js'
+    'html-import-template-loader.js'
   ].map(function(file){
     return paths.root + file;
   });

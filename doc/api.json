@@ -1,0 +1,167 @@
+{
+  "id": 2,
+  "name": "\"aurelia-html-import-template-loader\"",
+  "kind": 2,
+  "kindString": "Module",
+  "flags": {},
+  "children": [
+    {
+      "id": 3,
+      "name": "HTMLImportTemplateLoader",
+      "kind": 128,
+      "kindString": "Class",
+      "flags": {
+        "isExported": true
+      },
+      "children": [
+        {
+          "id": 4,
+          "name": "constructor",
+          "kind": 512,
+          "kindString": "Constructor",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 5,
+              "name": "new HTMLImportTemplateLoader",
+              "kind": 16384,
+              "kindString": "Constructor signature",
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "name": "HTMLImportTemplateLoader",
+                "id": 3,
+                "moduleName": "\"aurelia-html-import-template-loader\""
+              }
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "name": "loadTemplate",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {
+            "isExported": true
+          },
+          "signatures": [
+            {
+              "id": 7,
+              "name": "loadTemplate",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 8,
+                  "name": "loader",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "reference",
+                    "name": "Loader",
+                    "id": 44,
+                    "moduleName": "\"aurelia-loader\""
+                  }
+                },
+                {
+                  "id": 9,
+                  "name": "entry",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "reference",
+                    "name": "TemplateRegistryEntry",
+                    "id": 23,
+                    "moduleName": "\"aurelia-loader\""
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "Promise",
+                "typeArguments": [
+                  {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "kind": 512,
+          "children": [
+            4
+          ]
+        },
+        {
+          "title": "Methods",
+          "kind": 2048,
+          "children": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "name": "configure",
+      "kind": 64,
+      "kindString": "Function",
+      "flags": {
+        "isExported": true
+      },
+      "signatures": [
+        {
+          "id": 11,
+          "name": "configure",
+          "kind": 4096,
+          "kindString": "Call signature",
+          "flags": {},
+          "parameters": [
+            {
+              "id": 12,
+              "name": "config",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {},
+              "type": {
+                "type": "instrinct",
+                "name": "any"
+              }
+            }
+          ],
+          "type": {
+            "type": "instrinct",
+            "name": "any"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Classes",
+      "kind": 128,
+      "children": [
+        3
+      ]
+    },
+    {
+      "title": "Functions",
+      "kind": 64,
+      "children": [
+        10
+      ]
+    }
+  ]
+}

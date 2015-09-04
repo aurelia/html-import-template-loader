@@ -25,10 +25,13 @@
       "lib": "dist/amd"
     },
     "dependencies": {
-
+      "aurelia-loader": "github:aurelia/loader@^0.8.7",
+      "webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.12"
     },
     "devDependencies": {
-
+      "babel": "npm:babel-core@^5.8.22",
+      "babel-runtime": "npm:babel-runtime@^5.8.20",
+      "core-js": "npm:core-js@^1.1.0"
     }
   },
   "devDependencies": {
