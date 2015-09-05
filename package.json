@@ -1,6 +1,6 @@
 {
   "name": "aurelia-html-import-template-loader",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Use HTMLImport technology to load views.",
   "keywords": [
     "aurelia",
@@ -25,7 +25,7 @@
       "lib": "dist/amd"
     },
     "dependencies": {
-      "aurelia-loader": "github:aurelia/loader@^0.8.7",
+      "aurelia-loader": "github:aurelia/loader@^0.9.0",
       "webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.12"
     },
     "devDependencies": {
