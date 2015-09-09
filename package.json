@@ -19,7 +19,7 @@
     "url": "http://github.com/aurelia/html-import-template-loader"
   },
   "jspm": {
-    "main": "html-import-template-loader",
+    "main": "aurelia-html-import-template-loader",
     "format": "amd",
     "directories": {
       "lib": "dist/amd"
