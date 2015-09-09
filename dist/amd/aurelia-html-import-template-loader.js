@@ -128,10 +128,13 @@ define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
 
     HTMLImportTemplateLoader.prototype._normalizeTemplateIds = function _normalizeTemplateIds(doc) {
       var templates = doc.getElementsByTagName('template');
+      var i = templates.length;
 
-      for (var i = 0, ii = templates.length; i < ii; ++i) {
+      while (i--) {
         var current = templates[i];
-        current.setAttribute('id', System.normalizeSync(current.getAttribute('id')));
+        var beforeNormalize = current.getAttribute('id') + '!template-registry-entry';
+        var afterNormalize = System.normalizeSync(beforeNormalize);
+        current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
       }
     };
 

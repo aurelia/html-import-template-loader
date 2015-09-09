@@ -102,10 +102,13 @@ export class HTMLImportTemplateLoader {
 
   _normalizeTemplateIds(doc) {
     let templates = doc.getElementsByTagName('template');
+    let i = templates.length;
 
-    for (let i = 0, ii = templates.length; i < ii; ++i) {
+    while (i--) {
       let current = templates[i];
-      current.setAttribute('id', System.normalizeSync(current.getAttribute('id')));
+      let beforeNormalize = current.getAttribute('id') + '!template-registry-entry';
+      let afterNormalize = System.normalizeSync(beforeNormalize);
+      current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
     }
   }
 
