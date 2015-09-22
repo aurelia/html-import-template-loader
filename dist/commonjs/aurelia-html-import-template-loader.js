@@ -160,7 +160,7 @@ function configure(config) {
   config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
 
   if (!('import' in document.createElement('link'))) {
-    return System.normalize('aurelia-html-import-loader').then(function (name) {
+    return System.normalize('aurelia-html-import-template-loader').then(function (name) {
       return System['import']('webcomponentsjs/HTMLImports.min', name);
     });
   }

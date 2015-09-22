@@ -1,3 +1,11 @@
+### 0.2.2 (2015-09-22)
+
+
+#### Bug Fixes
+
+* **all:** incorrect module id to normalize polyfill with ([fb0a6b33](http://github.com/aurelia/html-import-template-loader/commit/fb0a6b33d55fe9f068d2bb8af5c897ce73f24145))
+
+
 ### 0.2.1 (2015-09-09)
 
 
