@@ -8,30 +8,30 @@ export class HTMLImportTemplateLoader {
   }
 
   loadTemplate(loader: Loader, entry: TemplateRegistryEntry): Promise<any> {
-    return this._tryFindTemplateInBundle(entry).then(found => {
+    return this._tryFindTemplateInBundle(loader, entry).then(found => {
       return found ? entry : this._importDocument(entry).then(doc => this._findTemplate(doc, entry));
     });
   }
 
-  _tryFindTemplateInBundle(entry: TemplateRegistryEntry): Promise<boolean> {
+  _tryFindTemplateInBundle(loader, entry) {
     if (this.bundle) {
       return this._tryGetTemplateFromBundle(entry);
     } else if (this.onBundleReady) {
       return this.onBundleReady.then(() => this._tryGetTemplateFromBundle(entry));
     } else if (this.needsBundleCheck) {
-      return this._loadBundle(entry);
+      return this._loadBundle(loader, entry);
     }
 
     return Promise.resolve(false);
   }
 
-  _loadBundle(entry) {
+  _loadBundle(loader, entry) {
     let bundleLink = document.querySelector('link[aurelia-view-bundle]');
     this.needsBundleCheck = false;
 
     if (bundleLink) {
       this.onBundleReady = this._importBundle(bundleLink).then(doc => {
-        this._normalizeTemplateIds(doc);
+        this._normalizeTemplateIds(loader, doc);
         this.bundle = doc;
         this.onBundleReady = null;
       });
@@ -100,14 +100,14 @@ export class HTMLImportTemplateLoader {
     });
   }
 
-  _normalizeTemplateIds(doc) {
+  _normalizeTemplateIds(loader, doc) {
     let templates = doc.getElementsByTagName('template');
     let i = templates.length;
 
     while (i--) {
       let current = templates[i];
       let beforeNormalize = current.getAttribute('id') + '!template-registry-entry';
-      let afterNormalize = System.normalizeSync(beforeNormalize);
+      let afterNormalize = loader.normalizeSync(beforeNormalize);
       current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
     }
   }
@@ -129,8 +129,8 @@ export function configure(config) {
   config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
 
   if (!('import' in document.createElement('link'))) {
-    return System.normalize('aurelia-html-import-template-loader').then(name => {
-      return System.import('webcomponentsjs/HTMLImports.min', name);
-    });
+    let name = config.aurelia.loader.normalizeSync('aurelia-html-import-template-loader');
+    let importsName = config.aurelia.loader.normalizeSync('webcomponentsjs/HTMLImports.min', name);
+    return config.aurelia.loader.loadModule(importsName);
   }
 }
