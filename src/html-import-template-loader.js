@@ -1,8 +1,8 @@
 import {TemplateRegistryEntry, Loader} from 'aurelia-loader';
+import {FEATURE} from 'aurelia-pal';
 
 export class HTMLImportTemplateLoader {
   constructor() {
-    this.hasTemplateElement = ('content' in document.createElement('template'));
     this.needsBundleCheck = true;
     this.onBundleReady = null;
   }
@@ -56,24 +56,20 @@ export class HTMLImportTemplateLoader {
   }
 
   _findTemplate(doc, entry) {
-    if (!this.hasTemplateElement) {
-      HTMLTemplateElement.bootstrap(doc);
-    }
-
     let template = doc.getElementsByTagName('template')[0];
 
     if (!template) {
       throw new Error(`There was no template element found in '${entry.address}'.`);
     }
 
-    entry.setTemplate(template);
+    entry.setTemplate(FEATURE.ensureHTMLTemplateElement(template));
   }
 
   _tryGetTemplateFromBundle(entry) {
     let found = this.bundle.getElementById(entry.address);
 
     if (found) {
-      entry.setTemplate(found);
+      entry.setTemplate(FEATURE.ensureHTMLTemplateElement(found));
       return Promise.resolve(true);
     }
 
@@ -83,19 +79,9 @@ export class HTMLImportTemplateLoader {
   _importBundle(link) {
     return new Promise((resolve, reject) => {
       if (link.import) {
-        if (!this.hasTemplateElement) {
-          HTMLTemplateElement.bootstrap(link.import);
-        }
-
         resolve(link.import);
       } else {
-        this._importElements(null, link, () => {
-          if (!this.hasTemplateElement) {
-            HTMLTemplateElement.bootstrap(link.import);
-          }
-
-          resolve(link.import);
-        });
+        this._importElements(null, link, () => resolve(link.import));
       }
     });
   }
@@ -106,9 +92,13 @@ export class HTMLImportTemplateLoader {
 
     while (i--) {
       let current = templates[i];
-      let beforeNormalize = current.getAttribute('id') + '!template-registry-entry';
-      let afterNormalize = loader.normalizeSync(beforeNormalize);
-      current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
+      let id = current.getAttribute('id');
+
+      if (id !== null && id !== undefined) {
+        let beforeNormalize = id + '!template-registry-entry';
+        let afterNormalize = loader.normalizeSync(beforeNormalize);
+        current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
+      }
     }
   }
 

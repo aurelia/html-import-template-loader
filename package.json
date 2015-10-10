@@ -26,6 +26,7 @@
     },
     "dependencies": {
       "aurelia-loader": "github:aurelia/loader@^0.9.0",
+      "aurelia-pal": "github:aurelia/pal@^0.1.10",
       "webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.12"
     },
     "devDependencies": {

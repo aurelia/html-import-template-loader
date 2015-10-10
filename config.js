@@ -14,6 +14,7 @@ System.config({
 
   map: {
     "aurelia-loader": "github:aurelia/loader@0.9.0",
+    "aurelia-pal": "github:aurelia/pal@0.1.10",
     "babel": "npm:babel-core@5.8.23",
     "babel-runtime": "npm:babel-runtime@5.8.20",
     "core-js": "npm:core-js@1.1.3",
