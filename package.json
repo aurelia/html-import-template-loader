@@ -1,6 +1,6 @@
 {
   "name": "aurelia-html-import-template-loader",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Use HTMLImport technology to load views.",
   "keywords": [
     "aurelia",
@@ -25,9 +25,9 @@
       "lib": "dist/amd"
     },
     "dependencies": {
-      "aurelia-loader": "github:aurelia/loader@^0.9.0",
-      "aurelia-pal": "github:aurelia/pal@^0.1.10",
-      "webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.12"
+      "aurelia-loader": "github:aurelia/loader@^0.10.0",
+      "aurelia-pal": "github:aurelia/pal@^0.2.0",
+      "webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.14"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.22",
@@ -66,28 +66,8 @@
     "yargs": "^2.1.1"
   },
   "aurelia": {
-    "usedBy": [],
     "documentation": {
-      "links": [
-        {
-          "rel": "license",
-          "mediaType": "text/plain",
-          "title": "The MIT License (MIT)",
-          "href": "LICENSE"
-        },
-        {
-          "rel": "describedby",
-          "mediaType": "application/aurelia-doc+json",
-          "title": "API",
-          "href": "doc/api.json"
-        },
-        {
-          "rel": "version-history",
-          "mediaType": "text/markdown",
-          "title": "Change Log",
-          "href": "doc/CHANGELOG.md"
-        }
-      ]
+      "articles": []
     }
   }
 }

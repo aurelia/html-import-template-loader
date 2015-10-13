@@ -1,4 +1,4 @@
-define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
+define(['exports', 'aurelia-loader', 'aurelia-pal'], function (exports, _aureliaLoader, _aureliaPal) {
   'use strict';
 
   exports.__esModule = true;
@@ -10,7 +10,6 @@ define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
     function HTMLImportTemplateLoader() {
       _classCallCheck(this, HTMLImportTemplateLoader);
 
-      this.hasTemplateElement = 'content' in document.createElement('template');
       this.needsBundleCheck = true;
       this.onBundleReady = null;
     }
@@ -18,14 +17,14 @@ define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
     HTMLImportTemplateLoader.prototype.loadTemplate = function loadTemplate(loader, entry) {
       var _this = this;
 
-      return this._tryFindTemplateInBundle(entry).then(function (found) {
+      return this._tryFindTemplateInBundle(loader, entry).then(function (found) {
         return found ? entry : _this._importDocument(entry).then(function (doc) {
           return _this._findTemplate(doc, entry);
         });
       });
     };
 
-    HTMLImportTemplateLoader.prototype._tryFindTemplateInBundle = function _tryFindTemplateInBundle(entry) {
+    HTMLImportTemplateLoader.prototype._tryFindTemplateInBundle = function _tryFindTemplateInBundle(loader, entry) {
       var _this2 = this;
 
       if (this.bundle) {
@@ -35,13 +34,13 @@ define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
           return _this2._tryGetTemplateFromBundle(entry);
         });
       } else if (this.needsBundleCheck) {
-        return this._loadBundle(entry);
+        return this._loadBundle(loader, entry);
       }
 
       return Promise.resolve(false);
     };
 
-    HTMLImportTemplateLoader.prototype._loadBundle = function _loadBundle(entry) {
+    HTMLImportTemplateLoader.prototype._loadBundle = function _loadBundle(loader, entry) {
       var _this3 = this;
 
       var bundleLink = document.querySelector('link[aurelia-view-bundle]');
@@ -49,7 +48,7 @@ define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
 
       if (bundleLink) {
         this.onBundleReady = this._importBundle(bundleLink).then(function (doc) {
-          _this3._normalizeTemplateIds(doc);
+          _this3._normalizeTemplateIds(loader, doc);
           _this3.bundle = doc;
           _this3.onBundleReady = null;
         });
@@ -80,24 +79,20 @@ define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
     };
 
     HTMLImportTemplateLoader.prototype._findTemplate = function _findTemplate(doc, entry) {
-      if (!this.hasTemplateElement) {
-        HTMLTemplateElement.bootstrap(doc);
-      }
-
       var template = doc.getElementsByTagName('template')[0];
 
       if (!template) {
         throw new Error('There was no template element found in \'' + entry.address + '\'.');
       }
 
-      entry.setTemplate(template);
+      entry.setTemplate(_aureliaPal.FEATURE.ensureHTMLTemplateElement(template));
     };
 
     HTMLImportTemplateLoader.prototype._tryGetTemplateFromBundle = function _tryGetTemplateFromBundle(entry) {
       var found = this.bundle.getElementById(entry.address);
 
       if (found) {
-        entry.setTemplate(found);
+        entry.setTemplate(_aureliaPal.FEATURE.ensureHTMLTemplateElement(found));
         return Promise.resolve(true);
       }
 
@@ -109,32 +104,28 @@ define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
 
       return new Promise(function (resolve, reject) {
         if (link['import']) {
-          if (!_this5.hasTemplateElement) {
-            HTMLTemplateElement.bootstrap(link['import']);
-          }
-
           resolve(link['import']);
         } else {
           _this5._importElements(null, link, function () {
-            if (!_this5.hasTemplateElement) {
-              HTMLTemplateElement.bootstrap(link['import']);
-            }
-
-            resolve(link['import']);
+            return resolve(link['import']);
           });
         }
       });
     };
 
-    HTMLImportTemplateLoader.prototype._normalizeTemplateIds = function _normalizeTemplateIds(doc) {
+    HTMLImportTemplateLoader.prototype._normalizeTemplateIds = function _normalizeTemplateIds(loader, doc) {
       var templates = doc.getElementsByTagName('template');
       var i = templates.length;
 
       while (i--) {
         var current = templates[i];
-        var beforeNormalize = current.getAttribute('id') + '!template-registry-entry';
-        var afterNormalize = System.normalizeSync(beforeNormalize);
-        current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
+        var id = current.getAttribute('id');
+
+        if (id !== null && id !== undefined) {
+          var beforeNormalize = id + '!template-registry-entry';
+          var afterNormalize = loader.normalizeSync(beforeNormalize);
+          current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
+        }
       }
     };
 
@@ -159,9 +150,9 @@ define(['exports', 'aurelia-loader'], function (exports, _aureliaLoader) {
     config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
 
     if (!('import' in document.createElement('link'))) {
-      return System.normalize('aurelia-html-import-template-loader').then(function (name) {
-        return System['import']('webcomponentsjs/HTMLImports.min', name);
-      });
+      var _name = config.aurelia.loader.normalizeSync('aurelia-html-import-template-loader');
+      var importsName = config.aurelia.loader.normalizeSync('webcomponentsjs/HTMLImports.min', _name);
+      return config.aurelia.loader.loadModule(importsName);
     }
   }
 });
