@@ -88,14 +88,14 @@ var HTMLImportTemplateLoader = (function () {
       throw new Error('There was no template element found in \'' + entry.address + '\'.');
     }
 
-    entry.setTemplate(_aureliaPal.FEATURE.ensureHTMLTemplateElement(template));
+    entry.template = _aureliaPal.FEATURE.ensureHTMLTemplateElement(template);
   };
 
   HTMLImportTemplateLoader.prototype._tryGetTemplateFromBundle = function _tryGetTemplateFromBundle(entry) {
     var found = this.bundle.getElementById(entry.address);
 
     if (found) {
-      entry.setTemplate(_aureliaPal.FEATURE.ensureHTMLTemplateElement(found));
+      entry.template = _aureliaPal.FEATURE.ensureHTMLTemplateElement(found);
       return Promise.resolve(true);
     }
 

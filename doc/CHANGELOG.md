@@ -1,3 +1,11 @@
+## 0.4.0 (2015-11-10)
+
+
+#### Bug Fixes
+
+* **all:** update to latest template entry api ([50234217](http://github.com/aurelia/html-import-template-loader/commit/5023421742a44e856a579d0c46d590358554dec6))
+
+
 ## 0.3.0 (2015-10-13)
 
 

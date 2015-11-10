@@ -104,14 +104,14 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export) {
             throw new Error('There was no template element found in \'' + entry.address + '\'.');
           }
 
-          entry.setTemplate(FEATURE.ensureHTMLTemplateElement(template));
+          entry.template = FEATURE.ensureHTMLTemplateElement(template);
         };
 
         HTMLImportTemplateLoader.prototype._tryGetTemplateFromBundle = function _tryGetTemplateFromBundle(entry) {
           var found = this.bundle.getElementById(entry.address);
 
           if (found) {
-            entry.setTemplate(FEATURE.ensureHTMLTemplateElement(found));
+            entry.template = FEATURE.ensureHTMLTemplateElement(found);
             return Promise.resolve(true);
           }
 

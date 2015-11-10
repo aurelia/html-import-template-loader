@@ -63,7 +63,7 @@
                   "type": {
                     "type": "reference",
                     "name": "Loader",
-                    "id": 46,
+                    "id": 44,
                     "moduleName": "\"aurelia-loader\""
                   }
                 },
@@ -76,7 +76,7 @@
                   "type": {
                     "type": "reference",
                     "name": "TemplateRegistryEntry",
-                    "id": 27,
+                    "id": 29,
                     "moduleName": "\"aurelia-loader\""
                   }
                 }
