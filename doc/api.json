@@ -13,6 +13,9 @@
       "flags": {
         "isExported": true
       },
+      "comment": {
+        "shortText": "An implementation of the TemplateLoader interface implemented using HTML Imports.\nSuitable for use when integrating with Polymer."
+      },
       "children": [
         {
           "id": 4,
@@ -22,6 +25,9 @@
           "flags": {
             "isExported": true
           },
+          "comment": {
+            "shortText": "Creates an instance of HTMLImportTemplateLoader."
+          },
           "signatures": [
             {
               "id": 5,
@@ -29,6 +35,9 @@
               "kind": 16384,
               "kindString": "Constructor signature",
               "flags": {},
+              "comment": {
+                "shortText": "Creates an instance of HTMLImportTemplateLoader."
+              },
               "type": {
                 "type": "reference",
                 "name": "HTMLImportTemplateLoader",
@@ -53,6 +62,10 @@
               "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
+              "comment": {
+                "shortText": "Loads a template.",
+                "returns": "A promise which resolves when the TemplateRegistryEntry is loaded with a template.\n"
+              },
               "parameters": [
                 {
                   "id": 8,
@@ -60,6 +73,9 @@
                   "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},
+                  "comment": {
+                    "text": "The loader that is requesting the template load."
+                  },
                   "type": {
                     "type": "reference",
                     "name": "Loader",
@@ -73,6 +89,9 @@
                   "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},
+                  "comment": {
+                    "text": "The TemplateRegistryEntry to load and populate with a template."
+                  },
                   "type": {
                     "type": "reference",
                     "name": "TemplateRegistryEntry",
@@ -127,6 +146,9 @@
           "kind": 4096,
           "kindString": "Call signature",
           "flags": {},
+          "comment": {
+            "shortText": "Configuires the HTMLImportTemplateLoader as the default loader for Aurelia."
+          },
           "parameters": [
             {
               "id": 12,
@@ -134,15 +156,24 @@
               "kind": 32768,
               "kindString": "Parameter",
               "flags": {},
+              "comment": {
+                "text": "The FrameworkConfiguration instance.\n"
+              },
               "type": {
-                "type": "instrinct",
-                "name": "any"
+                "type": "reference",
+                "name": "Object"
               }
             }
           ],
           "type": {
-            "type": "instrinct",
-            "name": "any"
+            "type": "reference",
+            "name": "Promise",
+            "typeArguments": [
+              {
+                "type": "instrinct",
+                "name": "void"
+              }
+            ]
           }
         }
       ]
