@@ -135,7 +135,8 @@ export class HTMLImportTemplateLoader {
 export function configure(config: Object): Promise<void> {
   config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
 
-  if (!('import' in document.createElement('link'))) {
+  // Check for native or polyfilled HTML imports support.
+  if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
     let name = config.aurelia.loader.normalizeSync('aurelia-html-import-template-loader');
     let importsName = config.aurelia.loader.normalizeSync('webcomponentsjs/HTMLImports.min', name);
     return config.aurelia.loader.loadModule(importsName);

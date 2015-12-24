@@ -152,7 +152,7 @@ exports.HTMLImportTemplateLoader = HTMLImportTemplateLoader;
 function configure(config) {
   config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
 
-  if (!('import' in document.createElement('link'))) {
+  if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
     var _name = config.aurelia.loader.normalizeSync('aurelia-html-import-template-loader');
     var importsName = config.aurelia.loader.normalizeSync('webcomponentsjs/HTMLImports.min', _name);
     return config.aurelia.loader.loadModule(importsName);
