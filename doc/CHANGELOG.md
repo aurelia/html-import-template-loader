@@ -1,3 +1,11 @@
+### 1.0.0-beta.1.0.1 (2016-01-08)
+
+
+#### Features
+
+* **all:** switch to normalize api from normalizeSync ([aa8870d9](http://github.com/aurelia/html-import-template-loader/commit/aa8870d93c05e730842bd87b3a555c009aaca34e))
+
+
 ### 1.0.0-beta.1 (2015-11-16)
 
 

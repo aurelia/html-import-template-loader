@@ -44,7 +44,8 @@ export class HTMLImportTemplateLoader {
 
     if (bundleLink) {
       this.onBundleReady = this._importBundle(bundleLink).then(doc => {
-        this._normalizeTemplateIds(loader, doc);
+        return this._normalizeTemplateIds(loader, doc);
+      }).then(() => {
         this.bundle = doc;
         this.onBundleReady = null;
       });
@@ -102,17 +103,18 @@ export class HTMLImportTemplateLoader {
   _normalizeTemplateIds(loader, doc) {
     let templates = doc.getElementsByTagName('template');
     let i = templates.length;
+    let all = [];
 
     while (i--) {
       let current = templates[i];
       let id = current.getAttribute('id');
 
       if (id !== null && id !== undefined) {
-        let beforeNormalize = id + '!template-registry-entry';
-        let afterNormalize = loader.normalizeSync(beforeNormalize);
-        current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
+        all.push(normalizeTemplateId(loader, id, current));
       }
     }
+
+    return Promise.all(all);
   }
 
   _importElements(frag, link, callback) {
@@ -128,6 +130,14 @@ export class HTMLImportTemplateLoader {
   }
 }
 
+function normalizeTemplateId(loader, id, current) {
+  let beforeNormalize = id + '!template-registry-entry';
+
+  return loader.normalize(beforeNormalize).then(afterNormalize => {
+    current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
+  });
+}
+
 /**
  * Configuires the HTMLImportTemplateLoader as the default loader for Aurelia.
  * @param config The FrameworkConfiguration instance.
@@ -137,8 +147,8 @@ export function configure(config: Object): Promise<void> {
 
   // Check for native or polyfilled HTML imports support.
   if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
-    let name = config.aurelia.loader.normalizeSync('aurelia-html-import-template-loader');
-    let importsName = config.aurelia.loader.normalizeSync('webcomponentsjs/HTMLImports.min', name);
-    return config.aurelia.loader.loadModule(importsName);
+    return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(name => {
+      return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
+    }).then(importsName => config.aurelia.loader.loadModule(importsName));
   }
 }

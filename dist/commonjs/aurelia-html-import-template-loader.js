@@ -51,7 +51,8 @@ var HTMLImportTemplateLoader = (function () {
 
     if (bundleLink) {
       this.onBundleReady = this._importBundle(bundleLink).then(function (doc) {
-        _this3._normalizeTemplateIds(loader, doc);
+        return _this3._normalizeTemplateIds(loader, doc);
+      }).then(function () {
         _this3.bundle = doc;
         _this3.onBundleReady = null;
       });
@@ -119,17 +120,18 @@ var HTMLImportTemplateLoader = (function () {
   HTMLImportTemplateLoader.prototype._normalizeTemplateIds = function _normalizeTemplateIds(loader, doc) {
     var templates = doc.getElementsByTagName('template');
     var i = templates.length;
+    var all = [];
 
     while (i--) {
       var current = templates[i];
       var id = current.getAttribute('id');
 
       if (id !== null && id !== undefined) {
-        var beforeNormalize = id + '!template-registry-entry';
-        var afterNormalize = loader.normalizeSync(beforeNormalize);
-        current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
+        all.push(normalizeTemplateId(loader, id, current));
       }
     }
+
+    return Promise.all(all);
   };
 
   HTMLImportTemplateLoader.prototype._importElements = function _importElements(frag, link, callback) {
@@ -149,12 +151,22 @@ var HTMLImportTemplateLoader = (function () {
 
 exports.HTMLImportTemplateLoader = HTMLImportTemplateLoader;
 
+function normalizeTemplateId(loader, id, current) {
+  var beforeNormalize = id + '!template-registry-entry';
+
+  return loader.normalize(beforeNormalize).then(function (afterNormalize) {
+    current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
+  });
+}
+
 function configure(config) {
   config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
 
   if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
-    var _name = config.aurelia.loader.normalizeSync('aurelia-html-import-template-loader');
-    var importsName = config.aurelia.loader.normalizeSync('webcomponentsjs/HTMLImports.min', _name);
-    return config.aurelia.loader.loadModule(importsName);
+    return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(function (name) {
+      return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
+    }).then(function (importsName) {
+      return config.aurelia.loader.loadModule(importsName);
+    });
   }
 }
