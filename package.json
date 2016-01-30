@@ -18,27 +18,28 @@
     "type": "git",
     "url": "http://github.com/aurelia/html-import-template-loader"
   },
-  "jspmNodeConversion": false,
   "jspm": {
-    "main": "aurelia-html-import-template-loader",
+    "registry": "npm",
+    "jspmPackage": true,
+    "main": "html-import-template-loader",
     "format": "amd",
     "directories": {
-      "lib": "dist/amd"
+      "dist": "dist/amd"
     },
-    "dependencies": {
-      "aurelia-loader": "npm:aurelia-loader@^1.0.0-beta.1",
-      "aurelia-pal": "npm:aurelia-pal@^1.0.0-beta.1",
+    "peerDependencies": {
+      "aurelia-loader": "^1.0.0-beta.1.1.0",
+      "aurelia-pal": "^1.0.0-beta.1.1.1",
       "webcomponentsjs": "github:webcomponents/webcomponentsjs@^0.7.16"
     },
     "devDependencies": {
-      "babel": "npm:babel-core@^5.8.22",
-      "babel-runtime": "npm:babel-runtime@^5.8.20",
-      "core-js": "npm:core-js@^1.2.6"
+      "babel": "babel-core@^5.8.24",
+      "babel-runtime": "^5.8.24",
+      "core-js": "^1.1.4"
     }
   },
-  "dependencies": {
-    "aurelia-loader": "^1.0.0-beta.1",
-    "aurelia-pal": "^1.0.0-beta.1"
+  "peerDependencies": {
+    "aurelia-loader": "^1.0.0-beta.1.1.0",
+    "aurelia-pal": "^1.0.0-beta.1.1.1"
   },
   "devDependencies": {
     "aurelia-tools": "^0.1.12",
