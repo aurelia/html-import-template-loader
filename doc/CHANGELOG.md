@@ -1,3 +1,11 @@
+### 1.0.0-beta.1.1.0 (2016-01-29)
+
+
+#### Features
+
+* **all:** update jspm meta; core-js; aurelia deps ([b4faa50e](http://github.com/aurelia/html-import-template-loader/commit/b4faa50ee4457710e6d488d66fba373479b4b96b))
+
+
 ### 1.0.0-beta.1.0.1 (2016-01-08)
 
 
