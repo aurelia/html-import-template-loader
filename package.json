@@ -1,6 +1,6 @@
 {
   "name": "aurelia-html-import-template-loader",
-  "version": "1.0.0-beta.1.1.1",
+  "version": "1.0.0-beta.1.1.2",
   "description": "Use HTMLImport technology to load views.",
   "keywords": [
     "aurelia",
@@ -29,7 +29,7 @@
     "peerDependencies": {
       "aurelia-loader": "^1.0.0-beta.1.1.0",
       "aurelia-pal": "^1.0.0-beta.1.1.1",
-      "webcomponentsjs": "webcomponents/webcomponentsjs@^0.7.16"
+      "webcomponentsjs": "webcomponents/webcomponentsjs"
     },
     "devDependencies": {
       "babel": "babel-core@^5.8.24",

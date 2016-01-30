@@ -1,6 +1,6 @@
 {
   "name": "html-import-template-loader",
-  "version": "1.0.0-beta.1.1.1",
+  "version": "1.0.0-beta.1.1.2",
   "description": "Use HTMLImport technology to load views.",
   "keywords": [
     "aurelia",
