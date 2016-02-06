@@ -44,10 +44,10 @@ export class HTMLImportTemplateLoader {
 
     if (bundleLink) {
       this.onBundleReady = this._importBundle(bundleLink).then(doc => {
-        return this._normalizeTemplateIds(loader, doc);
-      }).then(() => {
-        this.bundle = doc;
-        this.onBundleReady = null;
+        return this._normalizeTemplateIds(loader, doc).then(() => {
+          this.bundle = doc;
+          this.onBundleReady = null;
+        });
       });
 
       return this.onBundleReady.then(() => this._tryGetTemplateFromBundle(entry));
