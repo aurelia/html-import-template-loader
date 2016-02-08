@@ -51,10 +51,10 @@ var HTMLImportTemplateLoader = (function () {
 
     if (bundleLink) {
       this.onBundleReady = this._importBundle(bundleLink).then(function (doc) {
-        return _this3._normalizeTemplateIds(loader, doc);
-      }).then(function () {
-        _this3.bundle = doc;
-        _this3.onBundleReady = null;
+        return _this3._normalizeTemplateIds(loader, doc).then(function () {
+          _this3.bundle = doc;
+          _this3.onBundleReady = null;
+        });
       });
 
       return this.onBundleReady.then(function () {

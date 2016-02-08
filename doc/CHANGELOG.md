@@ -1,3 +1,11 @@
+### 1.0.0-beta.1.1.3 (2016-02-08)
+
+
+#### Bug Fixes
+
+* **loader:** missing context variable ([8aa788ae](http://github.com/aurelia/html-import-template-loader/commit/8aa788aef594d3d8eb0aa3d6d02c69e795ae8301), closes [#7](http://github.com/aurelia/html-import-template-loader/issues/7))
+
+
 ### 1.0.0-beta.1.1.0 (2016-01-29)
 
 
