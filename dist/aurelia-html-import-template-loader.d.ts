@@ -1,6 +1,11 @@
 declare module 'aurelia-html-import-template-loader' {
-  import { TemplateRegistryEntry, Loader }  from 'aurelia-loader';
-  import { FEATURE }  from 'aurelia-pal';
+  import {
+    TemplateRegistryEntry,
+    Loader
+  } from 'aurelia-loader';
+  import {
+    FEATURE
+  } from 'aurelia-pal';
   
   /**
   * An implementation of the TemplateLoader interface implemented using HTML Imports.

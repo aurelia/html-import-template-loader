@@ -1,11 +1,13 @@
-System.register(['aurelia-loader', 'aurelia-pal'], function (_export) {
-  'use strict';
+'use strict';
 
+System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) {
   var TemplateRegistryEntry, Loader, FEATURE, HTMLImportTemplateLoader;
 
-  _export('configure', configure);
-
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
 
   function normalizeTemplateId(loader, id, current) {
     var beforeNormalize = id + '!template-registry-entry';
@@ -13,18 +15,6 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export) {
     return loader.normalize(beforeNormalize).then(function (afterNormalize) {
       current.setAttribute('id', afterNormalize.replace('!template-registry-entry', ''));
     });
-  }
-
-  function configure(config) {
-    config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
-
-    if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
-      return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(function (name) {
-        return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
-      }).then(function (importsName) {
-        return config.aurelia.loader.loadModule(importsName);
-      });
-    }
   }
 
   return {
@@ -35,7 +25,7 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export) {
       FEATURE = _aureliaPal.FEATURE;
     }],
     execute: function () {
-      HTMLImportTemplateLoader = (function () {
+      _export('HTMLImportTemplateLoader', HTMLImportTemplateLoader = function () {
         function HTMLImportTemplateLoader() {
           _classCallCheck(this, HTMLImportTemplateLoader);
 
@@ -103,7 +93,7 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export) {
             frag.appendChild(link);
 
             _this4._importElements(frag, link, function () {
-              return resolve(link['import']);
+              return resolve(link.import);
             });
           });
         };
@@ -133,11 +123,11 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export) {
           var _this5 = this;
 
           return new Promise(function (resolve, reject) {
-            if (link['import']) {
-              resolve(link['import']);
+            if (link.import) {
+              resolve(link.import);
             } else {
               _this5._importElements(null, link, function () {
-                return resolve(link['import']);
+                return resolve(link.import);
               });
             }
           });
@@ -173,9 +163,23 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export) {
         };
 
         return HTMLImportTemplateLoader;
-      })();
+      }());
 
       _export('HTMLImportTemplateLoader', HTMLImportTemplateLoader);
+
+      function configure(config) {
+        config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
+
+        if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
+          return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(function (name) {
+            return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
+          }).then(function (importsName) {
+            return config.aurelia.loader.loadModule(importsName);
+          });
+        }
+      }
+
+      _export('configure', configure);
     }
   };
 });

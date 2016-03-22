@@ -1,26 +1,13 @@
-import {TemplateRegistryEntry,Loader} from 'aurelia-loader';
-import {FEATURE} from 'aurelia-pal';
+import { TemplateRegistryEntry, Loader } from 'aurelia-loader';
+import { FEATURE } from 'aurelia-pal';
 
-/**
-* An implementation of the TemplateLoader interface implemented using HTML Imports.
-* Suitable for use when integrating with Polymer.
-*/
-export class HTMLImportTemplateLoader {
-  /**
-   * Creates an instance of HTMLImportTemplateLoader.
-   */
+export let HTMLImportTemplateLoader = class HTMLImportTemplateLoader {
   constructor() {
     this.needsBundleCheck = true;
     this.onBundleReady = null;
   }
 
-  /**
-  * Loads a template.
-  * @param loader The loader that is requesting the template load.
-  * @param entry The TemplateRegistryEntry to load and populate with a template.
-  * @return A promise which resolves when the TemplateRegistryEntry is loaded with a template.
-  */
-  loadTemplate(loader: Loader, entry: TemplateRegistryEntry): Promise<any> {
+  loadTemplate(loader, entry) {
     return this._tryFindTemplateInBundle(loader, entry).then(found => {
       return found ? entry : this._importDocument(entry).then(doc => this._findTemplate(doc, entry));
     });
@@ -73,7 +60,7 @@ export class HTMLImportTemplateLoader {
     let template = doc.getElementsByTagName('template')[0];
 
     if (!template) {
-      throw new Error(`There was no template element found in '${entry.address}'.`);
+      throw new Error(`There was no template element found in '${ entry.address }'.`);
     }
 
     entry.template = FEATURE.ensureHTMLTemplateElement(template);
@@ -122,13 +109,13 @@ export class HTMLImportTemplateLoader {
       document.head.appendChild(frag);
     }
 
-    if (window.Polymer && Polymer.whenReady ) {
+    if (window.Polymer && Polymer.whenReady) {
       Polymer.whenReady(callback);
     } else {
       link.addEventListener('load', callback);
     }
   }
-}
+};
 
 function normalizeTemplateId(loader, id, current) {
   let beforeNormalize = id + '!template-registry-entry';
@@ -138,14 +125,9 @@ function normalizeTemplateId(loader, id, current) {
   });
 }
 
-/**
- * Configuires the HTMLImportTemplateLoader as the default loader for Aurelia.
- * @param config The FrameworkConfiguration instance.
- */
-export function configure(config: Object): Promise<void> {
+export function configure(config) {
   config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
 
-  // Check for native or polyfilled HTML imports support.
   if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
     return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(name => {
       return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);

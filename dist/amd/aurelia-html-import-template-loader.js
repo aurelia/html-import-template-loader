@@ -1,12 +1,19 @@
 define(['exports', 'aurelia-loader', 'aurelia-pal'], function (exports, _aureliaLoader, _aureliaPal) {
   'use strict';
 
-  exports.__esModule = true;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.HTMLImportTemplateLoader = undefined;
   exports.configure = configure;
 
-  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  }
 
-  var HTMLImportTemplateLoader = (function () {
+  var HTMLImportTemplateLoader = exports.HTMLImportTemplateLoader = function () {
     function HTMLImportTemplateLoader() {
       _classCallCheck(this, HTMLImportTemplateLoader);
 
@@ -74,7 +81,7 @@ define(['exports', 'aurelia-loader', 'aurelia-pal'], function (exports, _aurelia
         frag.appendChild(link);
 
         _this4._importElements(frag, link, function () {
-          return resolve(link['import']);
+          return resolve(link.import);
         });
       });
     };
@@ -104,11 +111,11 @@ define(['exports', 'aurelia-loader', 'aurelia-pal'], function (exports, _aurelia
       var _this5 = this;
 
       return new Promise(function (resolve, reject) {
-        if (link['import']) {
-          resolve(link['import']);
+        if (link.import) {
+          resolve(link.import);
         } else {
           _this5._importElements(null, link, function () {
-            return resolve(link['import']);
+            return resolve(link.import);
           });
         }
       });
@@ -144,9 +151,7 @@ define(['exports', 'aurelia-loader', 'aurelia-pal'], function (exports, _aurelia
     };
 
     return HTMLImportTemplateLoader;
-  })();
-
-  exports.HTMLImportTemplateLoader = HTMLImportTemplateLoader;
+  }();
 
   function normalizeTemplateId(loader, id, current) {
     var beforeNormalize = id + '!template-registry-entry';
