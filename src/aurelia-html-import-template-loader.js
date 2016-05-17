@@ -1,6 +1,5 @@
 import {TemplateRegistryEntry, Loader} from 'aurelia-loader';
-import {FEATURE} from 'aurelia-pal';
-import {initialize} from 'aurelia-pal-browser';
+import {FEATURE, DOM, PLATFORM} from 'aurelia-pal';
 
 /**
 * An implementation of the TemplateLoader interface implemented using HTML Imports.
@@ -61,8 +60,8 @@ export class HTMLImportTemplateLoader {
 
   _importDocument(entry) {
     return new Promise((resolve, reject) => {
-      let frag = document.createDocumentFragment();
-      let link = document.createElement('link');
+      let frag = DOM.createDocumentFragment();
+      let link = DOM.createElement('link');
 
       link.rel = 'import';
       link.href = this.linkHrefPrefix + entry.address;
@@ -124,7 +123,7 @@ export class HTMLImportTemplateLoader {
       document.head.appendChild(frag);
     }
 
-    if (window.Polymer && Polymer.whenReady ) {
+    if (PLATFORM.global.Polymer && Polymer.whenReady) {
       Polymer.whenReady(callback);
     } else {
       link.addEventListener('load', callback);
@@ -145,11 +144,10 @@ function normalizeTemplateId(loader, id, current) {
  * @param config The FrameworkConfiguration instance.
  */
 export function configure(config: Object, inlineConfig: Object): Promise<void> {
-  initialize();
   config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader(inlineConfig.linkHrefPrefix));
 
   // Check for native or polyfilled HTML imports support.
-  if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
+  if (!('import' in DOM.createElement('link')) && !('HTMLImports' in PLATFORM.global)) {
     return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(name => {
       return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
     }).then(importsName => config.aurelia.loader.loadModule(importsName));
