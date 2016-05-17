@@ -15,7 +15,7 @@ var jsName = paths.packageName + '.js';
 gulp.task('build-index', function(){
   var importsToAdd = [];
   var files = [
-    'html-import-template-loader.js'
+    'aurelia-html-import-template-loader.js'
   ].map(function(file){
     return paths.root + file;
   });
@@ -66,7 +66,7 @@ gulp.task('build-dts', function(){
       .pipe(gulp.dest(paths.output + 'system'));
 });
 
-gulp.task('build', function(callback) {
+gulp.task('default', function(callback) {
   return runSequence(
     'clean',
     'build-index',
