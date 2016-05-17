@@ -66,7 +66,7 @@ gulp.task('build-dts', function(){
       .pipe(gulp.dest(paths.output + 'system'));
 });
 
-gulp.task('default', function(callback) {
+gulp.task('build', function(callback) {
   return runSequence(
     'clean',
     'build-index',
