@@ -104,7 +104,7 @@ export class HTMLImportTemplateLoader {
 
   _normalizeTemplateIds(loader, doc) {
     let templates = doc.getElementsByTagName('template');
-    let i = templates ? templates.length : 0;
+    let i = templates.length;
     let all = [];
 
     while (i--) {
