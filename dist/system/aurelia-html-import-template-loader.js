@@ -1,7 +1,7 @@
 'use strict';
 
 System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) {
-  var TemplateRegistryEntry, Loader, FEATURE, HTMLImportTemplateLoader;
+  var TemplateRegistryEntry, Loader, FEATURE, DOM, PLATFORM, HTMLImportTemplateLoader;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -23,12 +23,15 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) 
       Loader = _aureliaLoader.Loader;
     }, function (_aureliaPal) {
       FEATURE = _aureliaPal.FEATURE;
+      DOM = _aureliaPal.DOM;
+      PLATFORM = _aureliaPal.PLATFORM;
     }],
     execute: function () {
       _export('HTMLImportTemplateLoader', HTMLImportTemplateLoader = function () {
-        function HTMLImportTemplateLoader() {
+        function HTMLImportTemplateLoader(linkHrefPrefix) {
           _classCallCheck(this, HTMLImportTemplateLoader);
 
+          this.linkHrefPrefix = linkHrefPrefix || '';
           this.needsBundleCheck = true;
           this.onBundleReady = null;
         }
@@ -85,11 +88,11 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) 
           var _this4 = this;
 
           return new Promise(function (resolve, reject) {
-            var frag = document.createDocumentFragment();
-            var link = document.createElement('link');
+            var frag = DOM.createDocumentFragment();
+            var link = DOM.createElement('link');
 
             link.rel = 'import';
-            link.href = entry.address;
+            link.href = _this4.linkHrefPrefix + entry.address;
             frag.appendChild(link);
 
             _this4._importElements(frag, link, function () {
@@ -104,7 +107,6 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) 
           if (!template) {
             throw new Error('There was no template element found in \'' + entry.address + '\'.');
           }
-
           entry.template = FEATURE.ensureHTMLTemplateElement(template);
         };
 
@@ -155,7 +157,7 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) 
             document.head.appendChild(frag);
           }
 
-          if (window.Polymer && Polymer.whenReady) {
+          if (PLATFORM.global.Polymer && Polymer.whenReady) {
             Polymer.whenReady(callback);
           } else {
             link.addEventListener('load', callback);
@@ -167,10 +169,10 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) 
 
       _export('HTMLImportTemplateLoader', HTMLImportTemplateLoader);
 
-      function configure(config) {
-        config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
+      function configure(config, inlineConfig) {
+        config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader(inlineConfig.linkHrefPrefix));
 
-        if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
+        if (!('import' in DOM.createElement('link')) && !('HTMLImports' in PLATFORM.global)) {
           return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(function (name) {
             return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
           }).then(function (importsName) {

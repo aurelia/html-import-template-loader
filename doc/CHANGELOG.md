@@ -1,3 +1,11 @@
+### 1.0.0-beta.1.2.2 (2016-05-17)
+
+
+#### Bug Fixes
+
+* **all:** update more to use PAL ([1eb19a2d](http://github.com/aurelia/html-import-template-loader/commit/1eb19a2da8ad55c59de295eb0dd26b0a0518a4e3))
+* Address various module/package name issues.
+
 ### 1.0.0-beta.1.2.1 (2016-05-10)
 
 

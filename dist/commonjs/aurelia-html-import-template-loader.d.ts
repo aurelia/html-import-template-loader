@@ -4,7 +4,9 @@ declare module 'aurelia-html-import-template-loader' {
     Loader
   } from 'aurelia-loader';
   import {
-    FEATURE
+    FEATURE,
+    DOM,
+    PLATFORM
   } from 'aurelia-pal';
   
   /**
@@ -16,7 +18,7 @@ declare module 'aurelia-html-import-template-loader' {
     /**
        * Creates an instance of HTMLImportTemplateLoader.
        */
-    constructor();
+    constructor(linkHrefPrefix: any);
     
     /**
       * Loads a template.
@@ -31,5 +33,5 @@ declare module 'aurelia-html-import-template-loader' {
    * Configuires the HTMLImportTemplateLoader as the default loader for Aurelia.
    * @param config The FrameworkConfiguration instance.
    */
-  export function configure(config: Object): Promise<void>;
+  export function configure(config: Object, inlineConfig: Object): Promise<void>;
 }

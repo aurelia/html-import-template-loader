@@ -1,8 +1,9 @@
 import { TemplateRegistryEntry, Loader } from 'aurelia-loader';
-import { FEATURE } from 'aurelia-pal';
+import { FEATURE, DOM, PLATFORM } from 'aurelia-pal';
 
 export let HTMLImportTemplateLoader = class HTMLImportTemplateLoader {
-  constructor() {
+  constructor(linkHrefPrefix) {
+    this.linkHrefPrefix = linkHrefPrefix || '';
     this.needsBundleCheck = true;
     this.onBundleReady = null;
   }
@@ -45,11 +46,11 @@ export let HTMLImportTemplateLoader = class HTMLImportTemplateLoader {
 
   _importDocument(entry) {
     return new Promise((resolve, reject) => {
-      let frag = document.createDocumentFragment();
-      let link = document.createElement('link');
+      let frag = DOM.createDocumentFragment();
+      let link = DOM.createElement('link');
 
       link.rel = 'import';
-      link.href = entry.address;
+      link.href = this.linkHrefPrefix + entry.address;
       frag.appendChild(link);
 
       this._importElements(frag, link, () => resolve(link.import));
@@ -62,7 +63,6 @@ export let HTMLImportTemplateLoader = class HTMLImportTemplateLoader {
     if (!template) {
       throw new Error(`There was no template element found in '${ entry.address }'.`);
     }
-
     entry.template = FEATURE.ensureHTMLTemplateElement(template);
   }
 
@@ -109,7 +109,7 @@ export let HTMLImportTemplateLoader = class HTMLImportTemplateLoader {
       document.head.appendChild(frag);
     }
 
-    if (window.Polymer && Polymer.whenReady) {
+    if (PLATFORM.global.Polymer && Polymer.whenReady) {
       Polymer.whenReady(callback);
     } else {
       link.addEventListener('load', callback);
@@ -125,10 +125,10 @@ function normalizeTemplateId(loader, id, current) {
   });
 }
 
-export function configure(config) {
-  config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
+export function configure(config, inlineConfig) {
+  config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader(inlineConfig.linkHrefPrefix));
 
-  if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
+  if (!('import' in DOM.createElement('link')) && !('HTMLImports' in PLATFORM.global)) {
     return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(name => {
       return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
     }).then(importsName => config.aurelia.loader.loadModule(importsName));

@@ -38,6 +38,19 @@
               "comment": {
                 "shortText": "Creates an instance of HTMLImportTemplateLoader."
               },
+              "parameters": [
+                {
+                  "id": 6,
+                  "name": "linkHrefPrefix",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "instrinct",
+                    "name": "any"
+                  }
+                }
+              ],
               "type": {
                 "type": "reference",
                 "name": "HTMLImportTemplateLoader",
@@ -48,7 +61,7 @@
           ]
         },
         {
-          "id": 6,
+          "id": 7,
           "name": "loadTemplate",
           "kind": 2048,
           "kindString": "Method",
@@ -57,7 +70,7 @@
           },
           "signatures": [
             {
-              "id": 7,
+              "id": 8,
               "name": "loadTemplate",
               "kind": 4096,
               "kindString": "Call signature",
@@ -68,7 +81,7 @@
               },
               "parameters": [
                 {
-                  "id": 8,
+                  "id": 9,
                   "name": "loader",
                   "kind": 32768,
                   "kindString": "Parameter",
@@ -79,12 +92,12 @@
                   "type": {
                     "type": "reference",
                     "name": "Loader",
-                    "id": 44,
+                    "id": 46,
                     "moduleName": "\"aurelia-loader\""
                   }
                 },
                 {
-                  "id": 9,
+                  "id": 10,
                   "name": "entry",
                   "kind": 32768,
                   "kindString": "Parameter",
@@ -95,7 +108,7 @@
                   "type": {
                     "type": "reference",
                     "name": "TemplateRegistryEntry",
-                    "id": 29,
+                    "id": 31,
                     "moduleName": "\"aurelia-loader\""
                   }
                 }
@@ -126,13 +139,13 @@
           "title": "Methods",
           "kind": 2048,
           "children": [
-            6
+            7
           ]
         }
       ]
     },
     {
-      "id": 10,
+      "id": 11,
       "name": "configure",
       "kind": 64,
       "kindString": "Function",
@@ -141,7 +154,7 @@
       },
       "signatures": [
         {
-          "id": 11,
+          "id": 12,
           "name": "configure",
           "kind": 4096,
           "kindString": "Call signature",
@@ -151,7 +164,7 @@
           },
           "parameters": [
             {
-              "id": 12,
+              "id": 13,
               "name": "config",
               "kind": 32768,
               "kindString": "Parameter",
@@ -159,6 +172,17 @@
               "comment": {
                 "text": "The FrameworkConfiguration instance.\n"
               },
+              "type": {
+                "type": "reference",
+                "name": "Object"
+              }
+            },
+            {
+              "id": 14,
+              "name": "inlineConfig",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {},
               "type": {
                 "type": "reference",
                 "name": "Object"
@@ -191,7 +215,7 @@
       "title": "Functions",
       "kind": 64,
       "children": [
-        10
+        11
       ]
     }
   ]
