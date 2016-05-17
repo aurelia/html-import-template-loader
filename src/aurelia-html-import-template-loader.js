@@ -11,7 +11,7 @@ export class HTMLImportTemplateLoader {
    * Creates an instance of HTMLImportTemplateLoader.
    */
   constructor(linkHrefPrefix) {
-    this.linkHrefPrefix = linkHrefPrefix || "";
+    this.linkHrefPrefix = linkHrefPrefix || '';
     this.needsBundleCheck = true;
     this.onBundleReady = null;
   }
