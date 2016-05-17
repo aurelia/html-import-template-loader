@@ -1,15 +1,18 @@
 import {TemplateRegistryEntry, Loader} from 'aurelia-loader';
 import {FEATURE} from 'aurelia-pal';
+import {initialize} from 'aurelia-pal-browser';
 
 /**
 * An implementation of the TemplateLoader interface implemented using HTML Imports.
 * Suitable for use when integrating with Polymer.
 */
 export class HTMLImportTemplateLoader {
+
   /**
    * Creates an instance of HTMLImportTemplateLoader.
    */
-  constructor() {
+  constructor(linkHrefPrefix) {
+    this.linkHrefPrefix = linkHrefPrefix || "";
     this.needsBundleCheck = true;
     this.onBundleReady = null;
   }
@@ -62,7 +65,7 @@ export class HTMLImportTemplateLoader {
       let link = document.createElement('link');
 
       link.rel = 'import';
-      link.href = entry.address;
+      link.href = this.linkHrefPrefix + entry.address;
       frag.appendChild(link);
 
       this._importElements(frag, link, () => resolve(link.import));
@@ -75,7 +78,6 @@ export class HTMLImportTemplateLoader {
     if (!template) {
       throw new Error(`There was no template element found in '${entry.address}'.`);
     }
-
     entry.template = FEATURE.ensureHTMLTemplateElement(template);
   }
 
@@ -102,7 +104,7 @@ export class HTMLImportTemplateLoader {
 
   _normalizeTemplateIds(loader, doc) {
     let templates = doc.getElementsByTagName('template');
-    let i = templates.length;
+    let i = templates ? templates.length : 0;
     let all = [];
 
     while (i--) {
@@ -142,8 +144,9 @@ function normalizeTemplateId(loader, id, current) {
  * Configuires the HTMLImportTemplateLoader as the default loader for Aurelia.
  * @param config The FrameworkConfiguration instance.
  */
-export function configure(config: Object): Promise<void> {
-  config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader());
+export function configure(config: Object, inlineConfig: Object): Promise<void> {
+  initialize();
+  config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader(inlineConfig.linkHrefPrefix));
 
   // Check for native or polyfilled HTML imports support.
   if (!('import' in document.createElement('link')) && !('HTMLImports' in window)) {
