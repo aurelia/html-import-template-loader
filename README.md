@@ -3,6 +3,7 @@
 [![npm Version](https://img.shields.io/npm/v/aurelia-html-import-template-loader.svg)](https://www.npmjs.com/package/aurelia-html-import-template-loader)
 [![ZenHub](https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png)](https://zenhub.io)
 [![Join the chat at https://gitter.im/aurelia/discuss](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/aurelia/discuss?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![CircleCI](https://circleci.com/gh/aurelia/html-import-template-loader.svg?style=shield)](https://circleci.com/gh/aurelia/html-import-template-loader)
 
 This library is part of the [Aurelia](http://www.aurelia.io/) platform and contains an implementation of the TemplateLoader interface for HTMLImport loading which works with system.js and all require-based loader APIs.
 
