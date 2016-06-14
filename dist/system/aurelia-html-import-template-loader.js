@@ -1,13 +1,11 @@
 'use strict';
 
 System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) {
+  "use strict";
+
   var TemplateRegistryEntry, Loader, FEATURE, DOM, PLATFORM, HTMLImportTemplateLoader;
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
+  
 
   function normalizeTemplateId(loader, id, current) {
     var beforeNormalize = id + '!template-registry-entry';
@@ -29,7 +27,7 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) 
     execute: function () {
       _export('HTMLImportTemplateLoader', HTMLImportTemplateLoader = function () {
         function HTMLImportTemplateLoader(linkHrefPrefix) {
-          _classCallCheck(this, HTMLImportTemplateLoader);
+          
 
           this.linkHrefPrefix = linkHrefPrefix || '';
           this.needsBundleCheck = true;
@@ -179,6 +177,8 @@ System.register(['aurelia-loader', 'aurelia-pal'], function (_export, _context) 
             return config.aurelia.loader.loadModule(importsName);
           });
         }
+
+        return undefined;
       }
 
       _export('configure', configure);

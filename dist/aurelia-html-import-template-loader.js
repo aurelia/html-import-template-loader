@@ -152,4 +152,6 @@ export function configure(config: Object, inlineConfig: Object): Promise<void> {
       return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
     }).then(importsName => config.aurelia.loader.loadModule(importsName));
   }
+
+  return undefined;
 }

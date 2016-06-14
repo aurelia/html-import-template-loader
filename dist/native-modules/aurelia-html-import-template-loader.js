@@ -1,18 +1,9 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.HTMLImportTemplateLoader = undefined;
-exports.configure = configure;
-
-var _aureliaLoader = require('aurelia-loader');
-
-var _aureliaPal = require('aurelia-pal');
 
 
+import { TemplateRegistryEntry, Loader } from 'aurelia-loader';
+import { FEATURE, DOM, PLATFORM } from 'aurelia-pal';
 
-var HTMLImportTemplateLoader = exports.HTMLImportTemplateLoader = function () {
+export var HTMLImportTemplateLoader = function () {
   function HTMLImportTemplateLoader(linkHrefPrefix) {
     
 
@@ -73,8 +64,8 @@ var HTMLImportTemplateLoader = exports.HTMLImportTemplateLoader = function () {
     var _this4 = this;
 
     return new Promise(function (resolve, reject) {
-      var frag = _aureliaPal.DOM.createDocumentFragment();
-      var link = _aureliaPal.DOM.createElement('link');
+      var frag = DOM.createDocumentFragment();
+      var link = DOM.createElement('link');
 
       link.rel = 'import';
       link.href = _this4.linkHrefPrefix + entry.address;
@@ -92,14 +83,14 @@ var HTMLImportTemplateLoader = exports.HTMLImportTemplateLoader = function () {
     if (!template) {
       throw new Error('There was no template element found in \'' + entry.address + '\'.');
     }
-    entry.template = _aureliaPal.FEATURE.ensureHTMLTemplateElement(template);
+    entry.template = FEATURE.ensureHTMLTemplateElement(template);
   };
 
   HTMLImportTemplateLoader.prototype._tryGetTemplateFromBundle = function _tryGetTemplateFromBundle(entry) {
     var found = this.bundle.getElementById(entry.address);
 
     if (found) {
-      entry.template = _aureliaPal.FEATURE.ensureHTMLTemplateElement(found);
+      entry.template = FEATURE.ensureHTMLTemplateElement(found);
       return Promise.resolve(true);
     }
 
@@ -142,7 +133,7 @@ var HTMLImportTemplateLoader = exports.HTMLImportTemplateLoader = function () {
       document.head.appendChild(frag);
     }
 
-    if (_aureliaPal.PLATFORM.global.Polymer && Polymer.whenReady) {
+    if (PLATFORM.global.Polymer && Polymer.whenReady) {
       Polymer.whenReady(callback);
     } else {
       link.addEventListener('load', callback);
@@ -160,10 +151,10 @@ function normalizeTemplateId(loader, id, current) {
   });
 }
 
-function configure(config, inlineConfig) {
+export function configure(config, inlineConfig) {
   config.aurelia.loader.useTemplateLoader(new HTMLImportTemplateLoader(inlineConfig.linkHrefPrefix));
 
-  if (!('import' in _aureliaPal.DOM.createElement('link')) && !('HTMLImports' in _aureliaPal.PLATFORM.global)) {
+  if (!('import' in DOM.createElement('link')) && !('HTMLImports' in PLATFORM.global)) {
     return config.aurelia.loader.normalize('aurelia-html-import-template-loader').then(function (name) {
       return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
     }).then(function (importsName) {

@@ -1,0 +1,1 @@
+export * from './aurelia-html-import-template-loader';

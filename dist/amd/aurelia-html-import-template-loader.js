@@ -7,15 +7,11 @@ define(['exports', 'aurelia-loader', 'aurelia-pal'], function (exports, _aurelia
   exports.HTMLImportTemplateLoader = undefined;
   exports.configure = configure;
 
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  }
+  
 
   var HTMLImportTemplateLoader = exports.HTMLImportTemplateLoader = function () {
     function HTMLImportTemplateLoader(linkHrefPrefix) {
-      _classCallCheck(this, HTMLImportTemplateLoader);
+      
 
       this.linkHrefPrefix = linkHrefPrefix || '';
       this.needsBundleCheck = true;
@@ -171,5 +167,7 @@ define(['exports', 'aurelia-loader', 'aurelia-pal'], function (exports, _aurelia
         return config.aurelia.loader.loadModule(importsName);
       });
     }
+
+    return undefined;
   }
 });

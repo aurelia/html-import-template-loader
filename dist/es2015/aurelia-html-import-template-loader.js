@@ -133,4 +133,6 @@ export function configure(config, inlineConfig) {
       return config.aurelia.loader.normalize('webcomponentsjs/HTMLImports.min', name);
     }).then(importsName => config.aurelia.loader.loadModule(importsName));
   }
+
+  return undefined;
 }
