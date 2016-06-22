@@ -13,8 +13,8 @@ System.config({
   },
 
   map: {
-    "aurelia-loader": "npm:aurelia-loader@1.0.0-beta.2.0.0",
-    "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.3.0",
+    "aurelia-loader": "npm:aurelia-loader@1.0.0-rc.1.0.0",
+    "aurelia-pal": "npm:aurelia-pal@1.0.0-rc.1.0.0",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@2.4.0",
@@ -58,12 +58,12 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "util": "npm:util@0.10.3"
     },
-    "npm:aurelia-loader@1.0.0-beta.2.0.0": {
-      "aurelia-metadata": "npm:aurelia-metadata@1.0.0-beta.2.0.0",
-      "aurelia-path": "npm:aurelia-path@1.0.0-beta.2.0.0"
+    "npm:aurelia-loader@1.0.0-rc.1.0.0": {
+      "aurelia-metadata": "npm:aurelia-metadata@1.0.0-rc.1.0.0",
+      "aurelia-path": "npm:aurelia-path@1.0.0-rc.1.0.0"
     },
-    "npm:aurelia-metadata@1.0.0-beta.2.0.0": {
-      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.3.0"
+    "npm:aurelia-metadata@1.0.0-rc.1.0.0": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-rc.1.0.0"
     },
     "npm:babel-runtime@5.8.38": {
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -104,7 +104,7 @@ System.config({
       "core-util-is": "npm:core-util-is@1.0.2",
       "events": "github:jspm/nodelibs-events@0.1.1",
       "inherits": "npm:inherits@2.0.1",
-      "isarray": "npm:isarray@0.0.1",
+      "isarray": "npm:isarray@1.0.0",
       "process": "github:jspm/nodelibs-process@0.1.2",
       "stream-browserify": "npm:stream-browserify@1.0.0",
       "string_decoder": "npm:string_decoder@0.10.31"
